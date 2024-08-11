@@ -1,5 +1,6 @@
 package com.alex.customer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @RequestMapping("api/v1/customers")
 public class CustomerController {
 
+    @Autowired
     CustomerService customerService;
 
     @GetMapping
@@ -28,6 +30,12 @@ public class CustomerController {
     @DeleteMapping("/{customerId}")
     public void deleteCustomer(@PathVariable("customerId") Integer customerId) {
         customerService.deleteCustomerByCustomerId(customerId);
+    }
+
+    @PutMapping("/{customerId}")
+    public void updateCustomer(@PathVariable("customerId") Integer customerId,
+                               @RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
+        customerService.updateCustomer(customerId, customerRegistrationRequest);
     }
 
 }

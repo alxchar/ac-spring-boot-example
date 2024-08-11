@@ -44,4 +44,28 @@ public class CustomerService {
 
         customerDao.deleteCustomerById(customerId);
     }
+
+    public void updateCustomer(Integer customerId, CustomerRegistrationRequest customerRegistrationRequest) {
+        Customer customer = customerDao.selectCustomerById(customerId).orElse(null);
+        if (customer != null) {
+            if (!customer.getName().equals(customerRegistrationRequest.name()))
+                customer.setName(customerRegistrationRequest.name());
+            else
+                throw new ResourceNotFound("customer with id: [%s] does not exist".formatted(customerId));
+
+            if (!customer.getEmail().equals(customerRegistrationRequest.email()))
+                customer.setEmail(customerRegistrationRequest.email());
+            else
+                throw new ResourceNotFound("customer with id: [%s] does not exist".formatted(customerId));
+
+            if (!customer.getAge().equals(customerRegistrationRequest.age()))
+                customer.setAge(customerRegistrationRequest.age());
+            else
+                throw new ResourceNotFound("customer with id: [%s] does not exist".formatted(customerId));
+
+            customerDao.insertCustomer(customer);
+        } else {
+            throw new ResourceNotFound("customer with id: [%s] does not exist".formatted(customerId));
+        }
+    }
 }
