@@ -41,7 +41,7 @@ public class CustomerJPADataAccessService implements CustomerDao {
 
     @Override
     public void deleteCustomerById(Integer customerId) {
-        customerRepository.deleteCustomerById(customerId);
+        customerRepository.deleteById(customerId);
     }
 
     @Override
