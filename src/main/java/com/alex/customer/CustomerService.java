@@ -12,7 +12,7 @@ public class CustomerService {
 
     private final CustomerDao customerDao;
 
-    public CustomerService(@Qualifier("jpa") CustomerDao customerDao) {
+    public CustomerService(@Qualifier("jdbc") CustomerDao customerDao) {
         this.customerDao = customerDao;
     }
 
@@ -63,7 +63,7 @@ public class CustomerService {
             else
                 throw new ResourceNotFound("customer with id: [%s] does not exist".formatted(customerId));
 
-            customerDao.insertCustomer(customer);
+            customerDao.updateCustomer(customer);
         } else {
             throw new ResourceNotFound("customer with id: [%s] does not exist".formatted(customerId));
         }
